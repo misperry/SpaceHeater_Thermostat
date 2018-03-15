@@ -50,6 +50,8 @@ void publishData(float p_temperature) {
   StaticJsonBuffer<200> jsonBuffer;
   JsonObject& root = jsonBuffer.createObject();
   // INFO: the data must be converted into a string; a problem occurs when using floats...
+  //convert to fahrenheit
+  p_temperature = (p_temperature * 1.8) + 32;  // convert to fahrenheit
   root["temperature"] = (String)p_temperature;
   root.prettyPrintTo(Serial);
   Serial.println("");
