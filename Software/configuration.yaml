@@ -1,0 +1,36 @@
+switch:
+    - platform: tplink
+      name: Upstairs Living RM Lamp 
+      host: 192.168.2.10
+
+    - platform: tplink
+      name: Bedroom Heater
+      host: 192.168.2.11
+
+sensor 1:
+    platform: mqtt
+    state_topic: 'ha/bedroom_temp'
+    name: Bedroom Temp
+    unit_of_measurement: '°F'
+    value_template: '{{ value_json.temperature }}'
+
+automation:
+    - alias: _Temp Bedroom Temp High
+      trigger:
+         - platform: numeric_state
+           entity_id: sensor.Bedroom_Temp
+           above: 73 
+
+      action:
+         service: homeassistant.turn_off
+         entity_id: switch.Bedroom_Heater
+
+    - alias: _Temp Bedroom Temp Low
+      trigger:
+         - platform: numeric_state
+           entity_id: sensor.Bedroom_Temp
+           below: 73
+   
+      action:
+        service: homeassistant.turn_on
+        entity_id: switch.Bedroom_Heater
