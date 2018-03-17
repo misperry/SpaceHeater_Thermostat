@@ -1,8 +1,5 @@
+mqtt:
 switch:
-    - platform: tplink
-      name: Upstairs Living RM Lamp 
-      host: 192.168.2.10
-
     - platform: tplink
       name: Bedroom Heater
       host: 192.168.2.11
